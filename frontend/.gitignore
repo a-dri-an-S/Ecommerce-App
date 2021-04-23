@@ -12,7 +12,10 @@
 /build
 
 # misc
+/.next
+
 .DS_Store
+
 .env.local
 .env.development.local
 .env.test.local
