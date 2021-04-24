@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import Head from 'next/head';
@@ -63,3 +64,7 @@ export default function SingleProduct({ id }) {
     </ProductStyles>
   );
 }
+
+SingleProduct.propTypes = {
+  id: PropTypes.any,
+};
