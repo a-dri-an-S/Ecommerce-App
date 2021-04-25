@@ -1,4 +1,4 @@
-import PropTypes, { any } from 'prop-types';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Link from 'next/link';
 import gql from 'graphql-tag';
@@ -7,7 +7,7 @@ import PaginationStyles from './styles/PaginationStyles';
 import DisplayError from './ErrorMessage';
 import { perPage } from '../config';
 
-const PAGINATION_QUERY = gql`
+export const PAGINATION_QUERY = gql`
   query PAGINATION_QUERY {
     _allProductsMeta {
       count
@@ -44,5 +44,5 @@ export default function Pagination({ page }) {
 }
 
 Pagination.propTypes = {
-  page: any,
+  page: PropTypes.any,
 };
