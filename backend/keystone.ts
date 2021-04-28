@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { createAuth } from '@keystone-next/auth';
 import { config, createSchema } from '@keystone-next/keystone/schema';
 import {
@@ -55,7 +56,7 @@ export default withAuth(
     }),
     ui: {
       // Show the UI only for people who pass this test
-      isAccessAllowed: ({ session }) => true,
+      isAccessAllowed: ({ session }) => !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
       User: 'id',
