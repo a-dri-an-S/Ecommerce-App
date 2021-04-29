@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import Form from './styles/Form';
@@ -79,3 +80,7 @@ export default function Reset({ token }) {
     </Form>
   );
 }
+
+Reset.propTypes = {
+  token: PropTypes.string,
+};
