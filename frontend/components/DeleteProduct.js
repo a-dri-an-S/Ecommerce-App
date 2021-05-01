@@ -26,7 +26,7 @@ export default function DeleteProduct({ id, children }) {
   return (
     <button
       type="button"
-      disables={loading}
+      disabled={loading}
       onClick={() => {
         // eslint-disable-next-line no-restricted-globals
         if (confirm('Are you sure you want to delete this item?!')) {
