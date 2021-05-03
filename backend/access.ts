@@ -1,7 +1,7 @@
 // At its simplest, the access control returns a yes or no value depending on the users session
 
-import { ListAccessArgs } from './types';
-import { permissionsList } from './schemas/fields';
+import { ListAccessArgs } from "./types";
+import { permissionsList } from "./schemas/fields";
 
 export function isSignedIn({ session }: ListAccessArgs) {
   return !!session;
@@ -26,6 +26,9 @@ export const permissions = {
 
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     // 1. Do they have the permission of canManageProducts
     if (permissions.canManageProducts({ session })) {
       return true;
@@ -33,11 +36,39 @@ export const rules = {
     // 2. If not, do they own this item?
     return { user: { id: session.itemId } };
   },
+
+  canOrder({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+    // 1. Do they have the permission of canOrder
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
+    // 2. If not, do they own this item?
+    return { user: { id: session.itemId } };
+  },
+
+  canManageOrderItems({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+    // 1. Do they have the permission of canOrder
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
+    // 2. If not, do they own this item?
+    return { order: { user: { id: session.itemId } } };
+  },
+
   canReadProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     if (permissions.canManageProducts({ session })) {
       return true; // they can read everything
     }
     // They should only see available products (based on the status field)
-    return { status: 'AVAILABLE' };
+    return { status: "AVAILABLE" };
   },
 };
